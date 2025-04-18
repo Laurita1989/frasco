@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Frasco Sonoro</title>
+  <style>
+    body {
+      background-color: #fafafa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: sans-serif;
+    }
+
+    #frasco {
+      width: 180px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    #frasco.abierto {
+      transform: scale(1.1) rotate(-5deg);
+      filter: brightness(1.2);
+    }
+
+    p {
+      margin-top: 20px;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+
+  <img id="frasco" src="frasco-cerrado.png" alt="Frasco Sonoro" onclick="reproducirSonido()">
+  <p>Haz clic en el frasco para liberar un nuevo sonido</p>
+
+  <script>
+    const sonidos = ["sonido1.mp3", "sonido2.mp3", "sonido3.mp3", "sonido4.mp3"];
+    let index = 0;
+
+    function reproducirSonido() {
+      const frasco = document.getElementById('frasco');
+
+      if (index >= sonidos.length) {
+        index = 0;
+      }
+
+      const audio = new Audio(sonidos[index]);
+      audio.play();
+
+      frasco.src = 'frasco-abierto.png';
+      frasco.classList.add('abierto');
+
+      setTimeout(() => {
+        frasco.src = 'frasco-cerrado.png';
+        frasco.classList.remove('abierto');
+      }, 1500);
+
+      index++;
+    }
+  </script>
+
+</body>
+</html>
